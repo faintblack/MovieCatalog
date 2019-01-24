@@ -20,13 +20,16 @@ public class NowPlayingAdapter extends RecyclerView.Adapter<NowPlayingViewHolder
     Context context;
     List<Movie> movieList;
 
-    public NowPlayingAdapter(Context context, List<Movie> movieList) {
+    public NowPlayingAdapter(Context context) {
         this.context = context;
-        this.movieList = movieList;
     }
 
     public List<Movie> getMovieList() {
         return movieList;
+    }
+
+    public void setMovieList(List<Movie> movieList) {
+        this.movieList = movieList;
     }
 
     @NonNull
@@ -47,6 +50,6 @@ public class NowPlayingAdapter extends RecyclerView.Adapter<NowPlayingViewHolder
 
     @Override
     public int getItemCount() {
-        return movieList.size();
+        return movieList!=null? movieList.size() : 0;
     }
 }
