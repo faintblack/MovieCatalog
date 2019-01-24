@@ -30,6 +30,7 @@ public class NowPlayingAdapter extends RecyclerView.Adapter<NowPlayingViewHolder
 
     public void setMovieList(List<Movie> movieList) {
         this.movieList = movieList;
+        notifyDataSetChanged();
     }
 
     @NonNull

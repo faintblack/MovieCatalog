@@ -2,6 +2,7 @@ package com.system.perfect.tugas2.fragments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,9 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.system.perfect.tugas2.BuildConfig;
+import com.system.perfect.tugas2.DetailMovieActivity;
 import com.system.perfect.tugas2.R;
 import com.system.perfect.tugas2.adapter.NowPlayingAdapter;
 import com.system.perfect.tugas2.model.Movie;
+import com.system.perfect.tugas2.support.ItemClickSupport;
 import com.system.perfect.tugas2.viewmodel.NowPlayingViewModel;
 
 import java.util.List;
@@ -26,8 +29,6 @@ public class NowPlayingFragment extends Fragment {
 
     private NowPlayingViewModel viewModel;
     private NowPlayingAdapter adapt;
-    private RecyclerView rvNowPlaying;
-    private List<Movie> movieList;
 
     public static NowPlayingFragment newInstance() {
         return new NowPlayingFragment();
@@ -42,12 +43,23 @@ public class NowPlayingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.now_playing_fragment, container, false);
-        rvNowPlaying = v.findViewById(R.id.rv_now_playing);
-        rvNowPlaying.setLayoutManager(new GridLayoutManager(getContext(),2));
+        RecyclerView rvNowPlaying = v.findViewById(R.id.rv_now_playing);
         rvNowPlaying.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(),2);
+        rvNowPlaying.setLayoutManager(layoutManager);
         adapt = new NowPlayingAdapter(getContext());
         rvNowPlaying.setAdapter(adapt);
+
         // ItemClickSupport here
+        ItemClickSupport.addTo(rvNowPlaying).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                Intent x = new Intent(getActivity(), DetailMovieActivity.class);
+                x.putExtra("id_movie", adapt.getMovieList().get(position).getId().toString());
+                startActivity(x);
+            }
+        });
+
         return v;
     }
 
@@ -55,7 +67,6 @@ public class NowPlayingFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(NowPlayingViewModel.class);
-        // TODO: Use the ViewModel
     }
 
     @Override
