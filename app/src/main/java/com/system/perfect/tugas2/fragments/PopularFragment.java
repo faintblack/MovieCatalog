@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.system.perfect.tugas2.BuildConfig;
@@ -32,6 +34,8 @@ public class PopularFragment extends Fragment {
     private PopularViewModel viewModel;
     private PopularAdapter adapt;
     ProgressBar pb;
+    Button btnSearch;
+    EditText strSearch;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +47,8 @@ public class PopularFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.popular_fragment, container, false);
         pb = v.findViewById(R.id.pro_bar_popular);
+        btnSearch = v.findViewById(R.id.btn_cari);
+        strSearch = v.findViewById(R.id.str_search);
         RecyclerView rvPopular = v.findViewById(R.id.rv_popular);
         rvPopular.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -50,7 +56,14 @@ public class PopularFragment extends Fragment {
         adapt = new PopularAdapter(getContext());
         rvPopular.setAdapter(adapt);
 
-        // ItemClickSupport here
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String searchTitle = strSearch.getText().toString();
+                requestData(searchTitle);
+            }
+        });
+
         ItemClickSupport.addTo(rvPopular).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
@@ -71,17 +84,28 @@ public class PopularFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        requestData();
+        requestData("");
     }
 
-    private void requestData(){
-        viewModel.getDataPopular(BuildConfig.TMDB_API_KEY).observe(Objects.requireNonNull(getActivity()), new Observer<List<Movie>>() {
-            @Override
-            public void onChanged(@Nullable List<Movie> movies) {
-                adapt.setMovieList(movies);
-                pb.setVisibility(View.GONE);
-            }
-        });
+    private void requestData(String data){
+        if (TextUtils.isEmpty(data)){
+            viewModel.getDataPopular(BuildConfig.TMDB_API_KEY).observe(Objects.requireNonNull(getActivity()), new Observer<List<Movie>>() {
+                @Override
+                public void onChanged(@Nullable List<Movie> movies) {
+                    adapt.setMovieList(movies);
+                    pb.setVisibility(View.GONE);
+                }
+            });
+        } else {
+            viewModel.getSearch(BuildConfig.TMDB_API_KEY, data).observe(Objects.requireNonNull(getActivity()), new Observer<List<Movie>>() {
+                @Override
+                public void onChanged(@Nullable List<Movie> movies) {
+                    adapt.setMovieList(movies);
+                    pb.setVisibility(View.GONE);
+                }
+            });
+        }
+
     }
 
 }

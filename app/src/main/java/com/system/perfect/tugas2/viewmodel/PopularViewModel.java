@@ -33,4 +33,20 @@ public class PopularViewModel extends ViewModel {
         });
         return data;
     }
+
+    public MutableLiveData<List<Movie>> getSearch(String api, String title){
+        final MutableLiveData<List<Movie>> data = new MutableLiveData<>();
+        service.getSearchMovie(api, title).enqueue(new Callback<MovieResult>() {
+            @Override
+            public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
+                data.setValue(response.body().getResults());
+            }
+
+            @Override
+            public void onFailure(Call<MovieResult> call, Throwable t) {
+                Log.d("SearchVModel request", "failed");
+            }
+        });
+        return data;
+    }
 }
