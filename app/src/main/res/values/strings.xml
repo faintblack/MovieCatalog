@@ -100,4 +100,5 @@
     <string name="genre">Genre</string>
     <string name="release">Release Date</string>
     <string name="toolbar_detail">Movie Title</string>
+    <string name="production_countries">Production Countries</string>
 </resources>

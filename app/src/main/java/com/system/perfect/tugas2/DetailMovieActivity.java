@@ -20,8 +20,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.system.perfect.tugas2.model.Genre;
 import com.system.perfect.tugas2.model.Movie;
 import com.system.perfect.tugas2.model.ProductionCountry;
+import com.system.perfect.tugas2.model.SpokenLanguage;
 import com.system.perfect.tugas2.viewmodel.DetailMovieViewModel;
-import com.system.perfect.tugas2.viewmodel.NowPlayingViewModel;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -30,13 +30,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 public class DetailMovieActivity extends AppCompatActivity {
 
     String idMovie;
-    TextView title, genre, release_date, revenue, vote_average, country, tagline, overview;
-    ImageView backdrop_path;
+    TextView title, genre, release_date, revenue, vote_average, country, tagline, overview, language;
+    ImageView backdrop_path, poster;
     Toolbar toolbar;
     DetailMovieViewModel viewModel;
     Movie movieData;
@@ -72,6 +71,7 @@ public class DetailMovieActivity extends AppCompatActivity {
 
     private void setData(final Movie movie){
         Glide.with(this).load(BuildConfig.TMDB_IMAGE_BIG + movie.getBackdropPath()).into(backdrop_path);
+        Glide.with(this).load(BuildConfig.TMDB_IMAGE_SMALL + movie.getPosterPath()).into(poster);
         title.setText(movie.getTitle());
         genre.setText(getGenre(movie.getGenres()));
         release_date.setText(getRelease(movie.getReleaseDate()));
@@ -79,6 +79,7 @@ public class DetailMovieActivity extends AppCompatActivity {
         String vote = movie.getVoteAverage().toString();
         vote_average.setText(vote);
         country.setText(getCountry(movie.getProductionCountries()));
+        language.setText(getLanguage(movie.getSpokenLanguages()));
         tagline.setText(movie.getTagline());
         overview.setText(movie.getOverview());
         toolbar.setTitle(movie.getTitle());
@@ -97,7 +98,15 @@ public class DetailMovieActivity extends AppCompatActivity {
         for (ProductionCountry x: country){
             countryText.add(x.getName());
         }
-        return TextUtils.join("",countryText);
+        return TextUtils.join(", ",countryText);
+    }
+
+    private String getLanguage(List<SpokenLanguage> lang){
+        List<String> langText = new ArrayList<>();
+        for (SpokenLanguage x : lang){
+            langText.add(x.getIso6391());
+        }
+        return TextUtils.join(", ",langText).toUpperCase();
     }
 
     private String getRelease(String date){
@@ -127,12 +136,14 @@ public class DetailMovieActivity extends AppCompatActivity {
         title = findViewById(R.id.text_title_detail);
         genre = findViewById(R.id.genre_detail);
         release_date = findViewById(R.id.release_date_detail);
-        revenue = findViewById(R.id.revenue);
-        vote_average = findViewById(R.id.vote_average);
-        country = findViewById(R.id.country);
+        revenue = findViewById(R.id.revenue_detail);
+        vote_average = findViewById(R.id.vote_average_detail);
+        country = findViewById(R.id.countries_detail);
+        language = findViewById(R.id.language_detail);
         tagline = findViewById(R.id.tagline);
         overview = findViewById(R.id.overview);
         backdrop_path = findViewById(R.id.image_detail);
+        poster = findViewById(R.id.poster_detail);
         toolbar = findViewById(R.id.toolbarl);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);

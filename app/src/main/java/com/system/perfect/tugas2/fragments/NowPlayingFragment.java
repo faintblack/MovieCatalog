@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.system.perfect.tugas2.BuildConfig;
 import com.system.perfect.tugas2.DetailMovieActivity;
@@ -29,6 +30,7 @@ public class NowPlayingFragment extends Fragment {
 
     private NowPlayingViewModel viewModel;
     private NowPlayingAdapter adapt;
+    ProgressBar pb;
 
     public static NowPlayingFragment newInstance() {
         return new NowPlayingFragment();
@@ -43,6 +45,7 @@ public class NowPlayingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.now_playing_fragment, container, false);
+        pb = v.findViewById(R.id.pro_bar_now_playing);
         RecyclerView rvNowPlaying = v.findViewById(R.id.rv_now_playing);
         rvNowPlaying.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(),2);
@@ -73,6 +76,7 @@ public class NowPlayingFragment extends Fragment {
     public void onResume() {
         super.onResume();
         requestData();
+
     }
 
     private void requestData(){
@@ -80,6 +84,7 @@ public class NowPlayingFragment extends Fragment {
             @Override
             public void onChanged(@Nullable List<Movie> movies) {
                 adapt.setMovieList(movies);
+                pb.setVisibility(View.GONE);
             }
         });
     }
