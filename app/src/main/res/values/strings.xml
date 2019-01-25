@@ -1,13 +1,9 @@
 <resources>
     <string name="app_name">MovieCatalog</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="tab_text_3">Tab 3</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="search_hint">Type to search...</string>
     <string name="btn_search">Search</string>
-    <string name="title_activity_detail_movie">DetailMovieActivity</string>
+    <string name="title_activity_detail_movie">Detail Movie</string>
     <string name="genre">Genre</string>
     <string name="release">Release Date</string>
     <string name="toolbar_detail">Movie Title</string>

@@ -19,8 +19,7 @@
                 android:layout_margin="5dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="17sp"
-                android:textStyle="bold"
-                tools:text="Judul Film" />
+                android:textStyle="bold" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="152dp"
@@ -40,14 +39,12 @@
                         android:textColor="#000"
                         android:layout_marginStart="@dimen/horizontal_margin"
                         android:layout_marginBottom="@dimen/vertical_margin"
-                        tools:text="Film ini menceritakan tentang"
                         android:id="@+id/overview_all_movies"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                     <TextView
                         android:textColor="#000"
                         android:layout_marginStart="@dimen/horizontal_margin"
-                        tools:text="1 Januari 2019"
                         android:id="@+id/release_all_movies"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />

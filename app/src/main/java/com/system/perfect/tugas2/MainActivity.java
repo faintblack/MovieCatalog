@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         SectionAdapter adapter = new SectionAdapter(getSupportFragmentManager());
         adapter.addFrag(new NowPlayingFragment(),"Now Playing");
         adapter.addFrag(new UpcomingFragment(),"Upcoming");
-        adapter.addFrag(new PopularFragment(),"Popular");
+        adapter.addFrag(new PopularFragment(),"Search");
         vPager.setAdapter(adapter);
     }
 
