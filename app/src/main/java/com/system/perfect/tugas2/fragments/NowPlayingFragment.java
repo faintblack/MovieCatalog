@@ -32,10 +32,6 @@ public class NowPlayingFragment extends Fragment {
     private NowPlayingAdapter adapt;
     ProgressBar pb;
 
-    public static NowPlayingFragment newInstance() {
-        return new NowPlayingFragment();
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +49,6 @@ public class NowPlayingFragment extends Fragment {
         adapt = new NowPlayingAdapter(getContext());
         rvNowPlaying.setAdapter(adapt);
 
-        // ItemClickSupport here
         ItemClickSupport.addTo(rvNowPlaying).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
@@ -62,7 +57,6 @@ public class NowPlayingFragment extends Fragment {
                 startActivity(x);
             }
         });
-
         return v;
     }
 
@@ -76,7 +70,6 @@ public class NowPlayingFragment extends Fragment {
     public void onResume() {
         super.onResume();
         requestData();
-
     }
 
     private void requestData(){
