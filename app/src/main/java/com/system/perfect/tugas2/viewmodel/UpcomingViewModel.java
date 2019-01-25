@@ -18,20 +18,23 @@ import retrofit2.Response;
 public class UpcomingViewModel extends ViewModel {
 
     private APIInterface service = RetrofitClient.getClient().create(APIInterface.class);
+    public MutableLiveData<List<Movie>> data;
 
     public MutableLiveData<List<Movie>> getDataUpcoming(String api){
-        final MutableLiveData<List<Movie>> data = new MutableLiveData<>();
-        service.getUpcoming(api).enqueue(new Callback<MovieResult>() {
-            @Override
-            public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
-                data.setValue(response.body().getResults());
-            }
+        if (data == null){
+            data = new MutableLiveData<>();
+            service.getUpcoming(api).enqueue(new Callback<MovieResult>() {
+                @Override
+                public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
+                    data.setValue(response.body().getResults());
+                }
 
-            @Override
-            public void onFailure(Call<MovieResult> call, Throwable t) {
-                Log.d("UCViewModel request", "failed");
-            }
-        });
+                @Override
+                public void onFailure(Call<MovieResult> call, Throwable t) {
+                    Log.d("UCViewModel request", "failed");
+                }
+            });
+        }
         return data;
     }
 }

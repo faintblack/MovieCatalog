@@ -88,24 +88,13 @@ public class PopularFragment extends Fragment {
     }
 
     private void requestData(String data){
-        if (TextUtils.isEmpty(data)){
-            viewModel.getDataPopular(BuildConfig.TMDB_API_KEY).observe(Objects.requireNonNull(getActivity()), new Observer<List<Movie>>() {
-                @Override
-                public void onChanged(@Nullable List<Movie> movies) {
-                    adapt.setMovieList(movies);
-                    pb.setVisibility(View.GONE);
-                }
-            });
-        } else {
-            viewModel.getSearch(BuildConfig.TMDB_API_KEY, data).observe(Objects.requireNonNull(getActivity()), new Observer<List<Movie>>() {
-                @Override
-                public void onChanged(@Nullable List<Movie> movies) {
-                    adapt.setMovieList(movies);
-                    pb.setVisibility(View.GONE);
-                }
-            });
-        }
-
+        viewModel.getDataPopular(BuildConfig.TMDB_API_KEY, data).observe(Objects.requireNonNull(getActivity()), new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(@Nullable List<Movie> movies) {
+                adapt.setMovieList(movies);
+                pb.setVisibility(View.GONE);
+            }
+        });
     }
 
 }

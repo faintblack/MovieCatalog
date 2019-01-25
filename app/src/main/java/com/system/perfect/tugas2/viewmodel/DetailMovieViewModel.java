@@ -15,21 +15,23 @@ import retrofit2.Response;
 public class DetailMovieViewModel extends ViewModel {
 
     private APIInterface service = RetrofitClient.getClient().create(APIInterface.class);
-    //public MutableLiveData<Movie> data;
+    public MutableLiveData<Movie> data;
 
     public MutableLiveData<Movie> getDetail(String id, String api){
-        final MutableLiveData<Movie> data = new MutableLiveData<>();
-        service.getDetailsMovie(id, api).enqueue(new Callback<Movie>() {
-            @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
-                data.setValue(response.body());
-            }
+        if (data == null){
+            data = new MutableLiveData<>();
+            service.getDetailsMovie(id, api).enqueue(new Callback<Movie>() {
+                @Override
+                public void onResponse(Call<Movie> call, Response<Movie> response) {
+                    data.setValue(response.body());
+                }
 
-            @Override
-            public void onFailure(Call<Movie> call, Throwable t) {
-                Log.d("DMViewModel request", "failed");
-            }
-        });
+                @Override
+                public void onFailure(Call<Movie> call, Throwable t) {
+                    Log.d("DMViewModel request", "failed");
+                }
+            });
+        }
         return data;
     }
 
