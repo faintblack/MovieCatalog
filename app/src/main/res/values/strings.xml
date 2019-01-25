@@ -99,4 +99,5 @@
     </string>
     <string name="genre">Genre</string>
     <string name="release">Release Date</string>
+    <string name="toolbar_detail">Movie Title</string>
 </resources>

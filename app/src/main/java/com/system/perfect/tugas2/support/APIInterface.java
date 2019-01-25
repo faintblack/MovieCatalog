@@ -1,5 +1,6 @@
 package com.system.perfect.tugas2.support;
 
+import com.system.perfect.tugas2.model.Movie;
 import com.system.perfect.tugas2.model.MovieResult;
 
 import retrofit2.Call;
@@ -19,6 +20,6 @@ public interface APIInterface {
     Call<MovieResult> getPopular(@Query("api_key") String apiKey);
 
     @GET("movie/{id_movie}")
-    Call<MovieResult> getDetailsMovie(@Path("id_movie") int id, @Query("api_key") String apiKey);
+    Call<Movie> getDetailsMovie(@Path("id_movie") String id, @Query("api_key") String apiKey);
 
 }
