@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Katalog Film</string>
+    <string name="action_settings">Pengaturan</string>
+    <string name="search_hint">Ketik untuk mencari...</string>
+    <string name="btn_search">Cari</string>
+    <string name="title_activity_detail_movie">Detail Film</string>
+    <string name="genre">Kategori</string>
+    <string name="release">Tanggal Rilis</string>
+    <string name="toolbar_detail">Judul Film</string>
+    <string name="production_countries">Negara Produksi</string>
+    <string name="language_settings">Ganti bahasa</string>
+    <string name="tab_text_1">Sedang Tayang</string>
+    <string name="tab_text_2">Akan Datang</string>
+    <string name="tab_text_3">Cari</string>
+</resources>

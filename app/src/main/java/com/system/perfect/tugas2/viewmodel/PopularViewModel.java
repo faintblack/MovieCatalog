@@ -19,6 +19,7 @@ import retrofit2.Response;
 public class PopularViewModel extends ViewModel {
     private APIInterface service = RetrofitClient.getClient().create(APIInterface.class);
     public MutableLiveData<List<Movie>> data;
+    public MutableLiveData<List<Movie>> dataSearch;
 
     public MutableLiveData<List<Movie>> getDataPopular(String api, String title){
         if (TextUtils.isEmpty(title)){

@@ -4,12 +4,16 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -57,6 +61,7 @@ public class NowPlayingFragment extends Fragment {
                 startActivity(x);
             }
         });
+
         return v;
     }
 
@@ -81,4 +86,5 @@ public class NowPlayingFragment extends Fragment {
             }
         });
     }
+
 }
