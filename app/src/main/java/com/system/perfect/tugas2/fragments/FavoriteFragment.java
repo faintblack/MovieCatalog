@@ -16,15 +16,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.system.perfect.tugas2.DetailMovieActivity;
 import com.system.perfect.tugas2.R;
 import com.system.perfect.tugas2.adapter.FavoriteAdapter;
-import com.system.perfect.tugas2.model.Movie;
 import com.system.perfect.tugas2.provider.FavoriteHelper;
-import com.system.perfect.tugas2.support.ItemClickSupport;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.system.perfect.tugas2.provider.DatabaseContract.CONTENT_URI;
 
@@ -39,9 +33,6 @@ public class FavoriteFragment extends Fragment {
     TextView a;
     RecyclerView rv_favorite;
 
-    public static FavoriteFragment newInstance() {
-        return new FavoriteFragment();
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,7 +43,7 @@ public class FavoriteFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.favorite_fragment, container, false);
-        //ButterKnife.bind(v);
+
         a = v.findViewById(R.id.testtt);
         pb = v.findViewById(R.id.pro_bar_favorite);
         rv_favorite = v.findViewById(R.id.rv_favorite);
@@ -60,23 +51,11 @@ public class FavoriteFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rv_favorite.setLayoutManager(layoutManager);
 
-        //list = new ArrayList<>();
-
         adapt = new FavoriteAdapter(getContext());
-        //adapt.setMovieList(list);
         rv_favorite.setAdapter(adapt);
 
         helper = new FavoriteHelper(getContext());
         helper.open();
-
-        /*ItemClickSupport.addTo(rv_favorite).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-            @Override
-            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                Intent x = new Intent(getActivity(), DetailMovieActivity.class);
-                x.putExtra("id_movie", adapt.getMovieList().get(position).getId().toString());
-                startActivity(x);
-            }
-        }); */
 
         return v;
     }
@@ -113,13 +92,8 @@ public class FavoriteFragment extends Fragment {
             super.onPostExecute(movies);
             pb.setVisibility(View.GONE);
             list = movies;
-            //list.addAll(movies);
             adapt.setMovieList(list);
 
-            /*if (list.size() == 0){
-                a.setVisibility(View.VISIBLE);
-                //Toast.makeText(getContext(), "Tidak ada data favorite saat ini",Toast.LENGTH_LONG).show();
-            }*/
         }
     }
 

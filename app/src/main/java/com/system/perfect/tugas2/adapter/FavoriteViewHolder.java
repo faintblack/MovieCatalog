@@ -9,9 +9,6 @@ import android.widget.TextView;
 
 import com.system.perfect.tugas2.R;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 class FavoriteViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView imgPoster;

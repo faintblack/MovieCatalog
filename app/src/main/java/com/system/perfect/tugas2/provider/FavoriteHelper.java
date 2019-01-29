@@ -101,7 +101,7 @@ public class FavoriteHelper {
         return db.query(TABLE,null,ID + " = ?" ,new String[]{id},null,null,null,null);
     }
     public Cursor queryProvider(){
-        return db.query(TABLE,null,null ,null,null,null,ID + " DESC");
+        return db.query(TABLE,null,null ,null,null,null,TITLE + " ASC");
     }
 
     public long insertProvider(ContentValues values){

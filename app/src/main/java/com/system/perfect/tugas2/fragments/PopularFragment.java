@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.system.perfect.tugas2.BuildConfig;
 import com.system.perfect.tugas2.DetailMovieActivity;
@@ -63,6 +64,9 @@ public class PopularFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String searchTitle = strSearch.getText().toString();
+                if (searchTitle.equals("")){
+                    searchTitle = ".";
+                }
                 requestData(searchTitle);
             }
         });

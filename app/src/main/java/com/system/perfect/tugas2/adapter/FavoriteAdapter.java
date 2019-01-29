@@ -20,7 +20,6 @@ import com.system.perfect.tugas2.support.CustomOnItemClickListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import static com.system.perfect.tugas2.provider.DatabaseContract.CONTENT_URI;
 

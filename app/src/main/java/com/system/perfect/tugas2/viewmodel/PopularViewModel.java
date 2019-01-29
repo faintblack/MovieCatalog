@@ -38,17 +38,33 @@ public class PopularViewModel extends ViewModel {
                 });
             }
         } else {
-            service.getSearchMovie(api, title).enqueue(new Callback<MovieResult>() {
-                @Override
-                public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
-                    data.setValue(response.body().getResults());
-                }
+            if (title.equals(".")){
+                data = new MutableLiveData<>();
+                service.getPopular(api).enqueue(new Callback<MovieResult>() {
+                    @Override
+                    public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
+                        data.setValue(response.body().getResults());
+                    }
 
-                @Override
-                public void onFailure(Call<MovieResult> call, Throwable t) {
-                    Log.d("SearchVModel request", "failed");
-                }
-            });
+                    @Override
+                    public void onFailure(Call<MovieResult> call, Throwable t) {
+                        Log.d("PViewModel request", "failed");
+                    }
+                });
+            } else {
+                service.getSearchMovie(api, title).enqueue(new Callback<MovieResult>() {
+                    @Override
+                    public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
+                        data.setValue(response.body().getResults());
+                    }
+
+                    @Override
+                    public void onFailure(Call<MovieResult> call, Throwable t) {
+                        Log.d("SearchVModel request", "failed");
+                    }
+                });
+            }
+
         }
         return data;
     }

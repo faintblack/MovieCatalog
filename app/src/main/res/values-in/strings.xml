@@ -13,4 +13,8 @@
     <string name="tab_text_1">Sedang Tayang</string>
     <string name="tab_text_2">Akan Datang</string>
     <string name="tab_text_3">Cari</string>
+    <string name="tab_text_4">Favorit</string>
+    <string name="favorite_data_text">Belum ada film yang anda sukai</string>
+    <string name="toast_add_favorite">Film favorit ditambahkan!</string>
+    <string name="toast_remove_favorite">Film favorit dihapuskan!</string>
 </resources>

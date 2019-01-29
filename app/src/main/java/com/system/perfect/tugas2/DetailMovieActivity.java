@@ -81,7 +81,6 @@ public class DetailMovieActivity extends AppCompatActivity {
     DetailMovieViewModel viewModel;
     Movie movieData;
 
-    private int position;
     private FavoriteHelper helper;
 
     public static int RESULT_ADD = 101;
@@ -132,8 +131,6 @@ public class DetailMovieActivity extends AppCompatActivity {
         movieFavorite.setReleaseDate(movieData.getReleaseDate());
         movieFavorite.setPosterPath(movieData.getPosterPath());
 
-        //helper.insertDataFavorite(movieFavorite);
-
         ContentValues values = new ContentValues();
         values.put(ID,movieData.getId());
         values.put(TITLE,movieData.getTitle());
@@ -149,7 +146,6 @@ public class DetailMovieActivity extends AppCompatActivity {
     }
 
     private void removeFavorite(String id){
-        //helper.deleteDataFavorite(id);
         getContentResolver().delete(getIntent().getData(),id,null);
         setResult(RESULT_DELETE, null);
         listFavorite.clear();
