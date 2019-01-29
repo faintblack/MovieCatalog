@@ -4,12 +4,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import com.system.perfect.tugas2.BuildConfig;
+
 public class DatabaseContract {
 
     static String TABLE_FAVORITE = "favorite_movie";
-    static final String AUTHOR = "com.mhrdkk.dicoding.moviecatalog";
+    static final String AUTHOR = BuildConfig.AUTHOR;
 
-    static final Uri CONTENT_URI = new Uri.Builder().scheme("content")
+    public static final Uri CONTENT_URI = new Uri.Builder().scheme("content")
             .authority(AUTHOR)
             .appendPath(TABLE_FAVORITE)
             .build();

@@ -3,6 +3,7 @@ package com.system.perfect.tugas2.fragments;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -28,6 +29,8 @@ import com.system.perfect.tugas2.viewmodel.NowPlayingViewModel;
 
 import java.util.List;
 import java.util.Objects;
+
+import static com.system.perfect.tugas2.provider.DatabaseContract.CONTENT_URI;
 
 public class NowPlayingFragment extends Fragment {
     private static final String TAG = "NowPlayingFragment";
@@ -57,6 +60,8 @@ public class NowPlayingFragment extends Fragment {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Intent x = new Intent(getActivity(), DetailMovieActivity.class);
+                Uri uri = Uri.parse(CONTENT_URI+"/"+adapt.getMovieList().get(position).getId().toString());
+                x.setData(uri);
                 x.putExtra("id_movie", adapt.getMovieList().get(position).getId().toString());
                 startActivity(x);
             }

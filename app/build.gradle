@@ -14,6 +14,7 @@ android {
         buildConfigField("String", "TMDB_IMAGE_SMALL", '"http://image.tmdb.org/t/p/w185/"')
         buildConfigField("String", "TMDB_IMAGE_MEDIUM", '"http://image.tmdb.org/t/p/w500/"')
         buildConfigField("String", "TMDB_IMAGE_BIG", '"http://image.tmdb.org/t/p/w780/"')
+        buildConfigField("String", "AUTHOR", '"com.system.perfect.tugas2"')
     }
     buildTypes {
         release {

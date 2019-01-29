@@ -89,7 +89,6 @@ public class Movie {
     private Integer voteCount;
 
     public Movie(){
-
     }
 
     public Movie(Cursor cursor){

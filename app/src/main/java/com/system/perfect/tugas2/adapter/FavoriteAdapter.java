@@ -1,6 +1,9 @@
 package com.system.perfect.tugas2.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,27 +13,31 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.system.perfect.tugas2.BuildConfig;
+import com.system.perfect.tugas2.DetailMovieActivity;
 import com.system.perfect.tugas2.R;
 import com.system.perfect.tugas2.model.Movie;
+import com.system.perfect.tugas2.support.CustomOnItemClickListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import static com.system.perfect.tugas2.provider.DatabaseContract.CONTENT_URI;
+
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteViewHolder> {
 
     Context context;
-    List<Movie> movieList;
+    Cursor movieList;
 
     public FavoriteAdapter(Context context) {
         this.context = context;
     }
 
-    public List<Movie> getMovieList() {
+    public Cursor getMovieList() {
         return movieList;
     }
 
-    public void setMovieList(List<Movie> movieList) {
+    public void setMovieList(Cursor movieList) {
         this.movieList = movieList;
         notifyDataSetChanged();
     }
@@ -44,13 +51,27 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull FavoriteViewHolder favoriteViewHolder, int i) {
-        favoriteViewHolder.textTitle.setText(movieList.get(i).getTitle());
+        final Movie movie = getItem(i);
+
+        favoriteViewHolder.textTitle.setText(movie.getTitle());
         Glide.with(context)
-                .load(BuildConfig.TMDB_IMAGE_SMALL + getMovieList().get(i).getPosterPath())
+                .load(BuildConfig.TMDB_IMAGE_SMALL + movie.getPosterPath())
                 .apply(new RequestOptions().override(350, 550))
                 .into(favoriteViewHolder.imgPoster);
-        favoriteViewHolder.textOverview.setText(movieList.get(i).getOverview());
-        favoriteViewHolder.textReleaseDate.setText(getRelease(movieList.get(i).getReleaseDate()));
+        favoriteViewHolder.textOverview.setText(movie.getOverview());
+        favoriteViewHolder.textReleaseDate.setText(getRelease(movie.getReleaseDate()));
+
+        favoriteViewHolder.cv_favorite.setOnClickListener(new CustomOnItemClickListener(i,
+                new CustomOnItemClickListener.OnItemClickCallback() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                Intent x = new Intent(context, DetailMovieActivity.class);
+                Uri uri = Uri.parse(CONTENT_URI+"/"+movie.getId());
+                x.setData(uri);
+                x.putExtra("id_movie", movie.getId().toString());
+                context.startActivity(x);
+            }
+        }));
     }
 
     private String getRelease(String date){
@@ -68,6 +89,13 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteViewHolder> {
 
     @Override
     public int getItemCount() {
-        return movieList!=null? movieList.size() : 0;
+        return movieList!=null? movieList.getCount() : 0;
+    }
+
+    private Movie getItem(int position){
+        if (!movieList.moveToPosition(position)) {
+            throw new IllegalStateException("Position invalid");
+        }
+        return new Movie(movieList);
     }
 }

@@ -2,7 +2,10 @@ package com.system.perfect.tugas2;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,6 +38,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.system.perfect.tugas2.provider.DatabaseContract.CONTENT_URI;
+import static com.system.perfect.tugas2.provider.DatabaseHelper.DESCRIPTION;
+import static com.system.perfect.tugas2.provider.DatabaseHelper.ID;
+import static com.system.perfect.tugas2.provider.DatabaseHelper.POSTER;
+import static com.system.perfect.tugas2.provider.DatabaseHelper.RELEASE_DATE;
+import static com.system.perfect.tugas2.provider.DatabaseHelper.TITLE;
 
 public class DetailMovieActivity extends AppCompatActivity {
 
@@ -88,6 +98,15 @@ public class DetailMovieActivity extends AppCompatActivity {
         idMovie = get.getStringExtra("id_movie");
         viewModel = ViewModelProviders.of(this).get(DetailMovieViewModel.class);
 
+        Uri uri = getIntent().getData();
+        if (uri != null) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null){
+                if(cursor.moveToFirst()) movieData = new Movie(cursor);
+                cursor.close();
+            }
+        }
+
         initView();
 
         helper = new FavoriteHelper(this);
@@ -113,15 +132,26 @@ public class DetailMovieActivity extends AppCompatActivity {
         movieFavorite.setReleaseDate(movieData.getReleaseDate());
         movieFavorite.setPosterPath(movieData.getPosterPath());
 
-        helper.insertDataFavorite(movieFavorite);
+        //helper.insertDataFavorite(movieFavorite);
+
+        ContentValues values = new ContentValues();
+        values.put(ID,movieData.getId());
+        values.put(TITLE,movieData.getTitle());
+        values.put(DESCRIPTION, movieData.getOverview());
+        values.put(RELEASE_DATE, movieData.getReleaseDate());
+        values.put(POSTER, movieData.getPosterPath());
+
+        getContentResolver().insert(CONTENT_URI, values);
         setResult(RESULT_ADD);
         fbFavorite.setImageResource(R.drawable.ic_favorite_24dp);
+        new checkFavoriteAsync().execute();
         Toast.makeText(this, R.string.toast_add_favorite,Toast.LENGTH_LONG).show();
     }
 
     private void removeFavorite(String id){
-        helper.deleteDataFavorite(id);
-        setResult(RESULT_DELETE);
+        //helper.deleteDataFavorite(id);
+        getContentResolver().delete(getIntent().getData(),id,null);
+        setResult(RESULT_DELETE, null);
         listFavorite.clear();
         fbFavorite.setImageResource(R.drawable.ic_favorite_border_24dp);
         Toast.makeText(this, R.string.toast_remove_favorite,Toast.LENGTH_LONG).show();
@@ -231,6 +261,8 @@ public class DetailMovieActivity extends AppCompatActivity {
 
             if (listFavorite.size() != 0){
                 fbFavorite.setImageResource(R.drawable.ic_favorite_24dp);
+            } else {
+                fbFavorite.setImageResource(R.drawable.ic_favorite_border_24dp);
             }
         }
     }

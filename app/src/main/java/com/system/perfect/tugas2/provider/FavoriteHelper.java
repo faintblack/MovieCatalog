@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
 
 import com.system.perfect.tugas2.model.Movie;
 
@@ -98,19 +97,21 @@ public class FavoriteHelper {
         return db.delete(TABLE, ID + " ='" + id + "'",null);
     }
 
-
     public Cursor queryByIdProvider(String id){
         return db.query(TABLE,null,ID + " = ?" ,new String[]{id},null,null,null,null);
     }
     public Cursor queryProvider(){
         return db.query(TABLE,null,null ,null,null,null,ID + " DESC");
     }
+
     public long insertProvider(ContentValues values){
         return db.insert(TABLE,null,values);
     }
+
     public int updateProvider(String id,ContentValues values){
         return db.update(TABLE,values,ID +" = ?",new String[]{id} );
     }
+
     public int deleteProvider(String id){
         return db.delete(TABLE,ID + " = ?", new String[]{id});
     }

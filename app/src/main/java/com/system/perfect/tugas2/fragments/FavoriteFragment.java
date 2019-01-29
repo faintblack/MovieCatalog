@@ -2,6 +2,7 @@ package com.system.perfect.tugas2.fragments;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.system.perfect.tugas2.DetailMovieActivity;
 import com.system.perfect.tugas2.R;
@@ -26,11 +26,13 @@ import com.system.perfect.tugas2.support.ItemClickSupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.system.perfect.tugas2.provider.DatabaseContract.CONTENT_URI;
+
 public class FavoriteFragment extends Fragment {
 
     private FavoriteViewModel viewModel;
     private FavoriteAdapter adapt;
-    private List<Movie> list;
+    private Cursor list;
     private FavoriteHelper helper;
 
     ProgressBar pb;
@@ -58,7 +60,7 @@ public class FavoriteFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rv_favorite.setLayoutManager(layoutManager);
 
-        list = new ArrayList<>();
+        //list = new ArrayList<>();
 
         adapt = new FavoriteAdapter(getContext());
         //adapt.setMovieList(list);
@@ -67,14 +69,14 @@ public class FavoriteFragment extends Fragment {
         helper = new FavoriteHelper(getContext());
         helper.open();
 
-        ItemClickSupport.addTo(rv_favorite).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+        /*ItemClickSupport.addTo(rv_favorite).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Intent x = new Intent(getActivity(), DetailMovieActivity.class);
                 x.putExtra("id_movie", adapt.getMovieList().get(position).getId().toString());
                 startActivity(x);
             }
-        });
+        }); */
 
         return v;
     }
@@ -91,33 +93,33 @@ public class FavoriteFragment extends Fragment {
         new LoadFavoriteAsync().execute();
     }
 
-    private class LoadFavoriteAsync extends AsyncTask<Void, Void, ArrayList<Movie>>{
+    private class LoadFavoriteAsync extends AsyncTask<Void, Void, Cursor>{
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             pb.setVisibility(View.VISIBLE);
-            if (list.size() > 0){
-                list.clear();
-            }
+
         }
 
         @Override
-        protected ArrayList<Movie> doInBackground(Void... voids) {
-            return helper.getData();
+        protected Cursor doInBackground(Void... voids) {
+            //return helper.getData();
+            return getActivity().getContentResolver().query(CONTENT_URI,null,null,null,null);
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Movie> movies) {
+        protected void onPostExecute(Cursor movies) {
             super.onPostExecute(movies);
             pb.setVisibility(View.GONE);
-            list.addAll(movies);
+            list = movies;
+            //list.addAll(movies);
             adapt.setMovieList(list);
 
-            if (list.size() == 0){
+            /*if (list.size() == 0){
                 a.setVisibility(View.VISIBLE);
                 //Toast.makeText(getContext(), "Tidak ada data favorite saat ini",Toast.LENGTH_LONG).show();
-            }
+            }*/
         }
     }
 
