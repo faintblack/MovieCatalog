@@ -17,7 +17,6 @@ import android.widget.ProgressBar;
 import com.system.perfect.tugas2.BuildConfig;
 import com.system.perfect.tugas2.DetailMovieActivity;
 import com.system.perfect.tugas2.R;
-import com.system.perfect.tugas2.adapter.NowPlayingAdapter;
 import com.system.perfect.tugas2.adapter.UpcomingAdapter;
 import com.system.perfect.tugas2.model.Movie;
 import com.system.perfect.tugas2.support.ItemClickSupport;

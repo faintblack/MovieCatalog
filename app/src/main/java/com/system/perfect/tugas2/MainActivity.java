@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.system.perfect.tugas2.adapter.SectionAdapter;
+import com.system.perfect.tugas2.fragments.FavoriteFragment;
 import com.system.perfect.tugas2.fragments.NowPlayingFragment;
 import com.system.perfect.tugas2.fragments.PopularFragment;
 import com.system.perfect.tugas2.fragments.UpcomingFragment;
@@ -45,11 +46,13 @@ public class MainActivity extends AppCompatActivity {
     private void setViewPager(ViewPager vPager){
         String a = getString(R.string.tab_text_1);
         String b = getString(R.string.tab_text_2);
-        String c = getString(R.string.tab_text_3);
+        String c = getString(R.string.tab_text_4);
+        String d = getString(R.string.tab_text_3);
         SectionAdapter adapter = new SectionAdapter(getSupportFragmentManager());
         adapter.addFrag(new NowPlayingFragment(),a);
         adapter.addFrag(new UpcomingFragment(),b);
-        adapter.addFrag(new PopularFragment(),c);
+        adapter.addFrag(new FavoriteFragment(),c);
+        adapter.addFrag(new PopularFragment(),d);
         vPager.setAdapter(adapter);
     }
 

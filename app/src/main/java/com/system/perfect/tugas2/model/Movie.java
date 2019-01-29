@@ -1,9 +1,16 @@
 package com.system.perfect.tugas2.model;
 
+import android.database.Cursor;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.system.perfect.tugas2.provider.DatabaseContract;
 
 import java.util.List;
+
+import static android.provider.BaseColumns._ID;
+import static com.system.perfect.tugas2.provider.DatabaseContract.getColumnInt;
+import static com.system.perfect.tugas2.provider.DatabaseContract.getColumnString;
 
 public class Movie {
     @SerializedName("adult")
@@ -81,6 +88,18 @@ public class Movie {
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;
+
+    public Movie(){
+
+    }
+
+    public Movie(Cursor cursor){
+        this.id = getColumnInt(cursor, _ID);
+        this.title = getColumnString(cursor, DatabaseContract.MovieColumns.TITLE);
+        this.overview = getColumnString(cursor, DatabaseContract.MovieColumns.DESCRIPTION);
+        this.releaseDate = getColumnString(cursor, DatabaseContract.MovieColumns.RELEASE_DATE);
+        this.posterPath = getColumnString(cursor, DatabaseContract.MovieColumns.POSTER);
+    }
 
     public Boolean getAdult() {
         return adult;
