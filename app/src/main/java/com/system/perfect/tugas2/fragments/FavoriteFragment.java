@@ -25,12 +25,13 @@ import com.system.perfect.tugas2.support.ItemClickSupport;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class FavoriteFragment extends Fragment {
 
     private FavoriteViewModel viewModel;
     private FavoriteAdapter adapt;
-    private LinkedList<Movie> list;
+    private List<Movie> list;
     private FavoriteHelper helper;
 
     ProgressBar pb;
@@ -58,16 +59,14 @@ public class FavoriteFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rv_favorite.setLayoutManager(layoutManager);
 
-        list = new LinkedList<>();
+        list = new ArrayList<>();
 
         adapt = new FavoriteAdapter(getContext());
-        adapt.setMovieList(list);
+        //adapt.setMovieList(list);
         rv_favorite.setAdapter(adapt);
 
         helper = new FavoriteHelper(getContext());
         helper.open();
-
-        new LoadFavoriteAsync().execute();
 
         ItemClickSupport.addTo(rv_favorite).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
@@ -85,6 +84,12 @@ public class FavoriteFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(FavoriteViewModel.class);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        new LoadFavoriteAsync().execute();
     }
 
     private class LoadFavoriteAsync extends AsyncTask<Void, Void, ArrayList<Movie>>{

@@ -21,6 +21,7 @@ import com.system.perfect.tugas2.model.Genre;
 import com.system.perfect.tugas2.model.Movie;
 import com.system.perfect.tugas2.model.ProductionCountry;
 import com.system.perfect.tugas2.model.SpokenLanguage;
+import com.system.perfect.tugas2.provider.FavoriteHelper;
 import com.system.perfect.tugas2.viewmodel.DetailMovieViewModel;
 
 import java.text.DecimalFormat;
@@ -36,9 +37,18 @@ public class DetailMovieActivity extends AppCompatActivity {
     String idMovie;
     TextView title, genre, release_date, revenue, vote_average, country, tagline, overview, language;
     ImageView backdrop_path, poster;
+    FloatingActionButton fbFavorite;
     Toolbar toolbar;
     DetailMovieViewModel viewModel;
     Movie movieData;
+
+    private int position;
+    private FavoriteHelper helper;
+
+    public static String EXTRA_MOVIE = "extra_movie";
+    public static String EXTRA_POSITION = "extra_position";
+    public static int RESULT_ADD = 101;
+    public static int RESULT_DELETE = 301;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +60,31 @@ public class DetailMovieActivity extends AppCompatActivity {
         viewModel = ViewModelProviders.of(this).get(DetailMovieViewModel.class);
 
         initView();
+
+        helper = new FavoriteHelper(this);
+        helper.open();
+
+        fbFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addFavorite();
+            }
+        });
+
+    }
+
+    private void addFavorite(){
+        Movie movieFavorite = new Movie();
+        movieFavorite.setId(movieData.getId());
+        movieFavorite.setTitle(movieData.getTitle());
+        movieFavorite.setOverview(movieData.getOverview());
+        movieFavorite.setReleaseDate(movieData.getReleaseDate());
+        movieFavorite.setPosterPath(movieData.getPosterPath());
+
+        helper.insertDataFavorite(movieFavorite);
+        setResult(RESULT_ADD);
+        Toast.makeText(this, "Favorite Movie Added!",
+                Toast.LENGTH_LONG).show();
 
     }
 
@@ -144,6 +179,7 @@ public class DetailMovieActivity extends AppCompatActivity {
         overview = findViewById(R.id.overview);
         backdrop_path = findViewById(R.id.image_detail);
         poster = findViewById(R.id.poster_detail);
+        fbFavorite = findViewById(R.id.fab);
         toolbar = findViewById(R.id.toolbarl);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);

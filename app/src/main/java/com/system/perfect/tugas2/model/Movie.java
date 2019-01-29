@@ -4,11 +4,10 @@ import android.database.Cursor;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.system.perfect.tugas2.provider.DatabaseContract;
+import com.system.perfect.tugas2.provider.DatabaseHelper;
 
 import java.util.List;
 
-import static android.provider.BaseColumns._ID;
 import static com.system.perfect.tugas2.provider.DatabaseContract.getColumnInt;
 import static com.system.perfect.tugas2.provider.DatabaseContract.getColumnString;
 
@@ -94,11 +93,11 @@ public class Movie {
     }
 
     public Movie(Cursor cursor){
-        this.id = getColumnInt(cursor, _ID);
-        this.title = getColumnString(cursor, DatabaseContract.MovieColumns.TITLE);
-        this.overview = getColumnString(cursor, DatabaseContract.MovieColumns.DESCRIPTION);
-        this.releaseDate = getColumnString(cursor, DatabaseContract.MovieColumns.RELEASE_DATE);
-        this.posterPath = getColumnString(cursor, DatabaseContract.MovieColumns.POSTER);
+        this.id = getColumnInt(cursor, DatabaseHelper.ID);
+        this.title = getColumnString(cursor, DatabaseHelper.TITLE);
+        this.overview = getColumnString(cursor, DatabaseHelper.DESCRIPTION);
+        this.releaseDate = getColumnString(cursor, DatabaseHelper.RELEASE_DATE);
+        this.posterPath = getColumnString(cursor, DatabaseHelper.POSTER);
     }
 
     public Boolean getAdult() {

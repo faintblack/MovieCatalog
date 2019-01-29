@@ -13,17 +13,16 @@ import butterknife.ButterKnife;
 
 class FavoriteViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.img_favorite)
     public ImageView imgPoster;
-    @BindView(R.id.title_favorite)
     public TextView textTitle;
-    @BindView(R.id.overview_favorite)
     public TextView textOverview;
-    @BindView(R.id.release_favorite)
     public TextView textReleaseDate;
 
     public FavoriteViewHolder(@NonNull View itemView) {
         super(itemView);
-        ButterKnife.bind(itemView);
+        imgPoster = itemView.findViewById(R.id.img_favorite);
+        textTitle = itemView.findViewById(R.id.title_favorite);
+        textOverview = itemView.findViewById(R.id.overview_favorite);
+        textReleaseDate = itemView.findViewById(R.id.release_favorite);
     }
 }
