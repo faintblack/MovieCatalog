@@ -3,6 +3,7 @@ package com.system.perfect.tugas2;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -32,21 +33,47 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailMovieActivity extends AppCompatActivity {
 
-    String idMovie;
-    TextView title, genre, release_date, revenue, vote_average, country, tagline, overview, language;
-    ImageView backdrop_path, poster;
+    @BindView(R.id.text_title_detail)
+    TextView title;
+    @BindView(R.id.genre_detail)
+    TextView genre;
+    @BindView(R.id.release_date_detail)
+    TextView release_date;
+    @BindView(R.id.revenue_detail)
+    TextView revenue;
+    @BindView(R.id.vote_average_detail)
+    TextView vote_average;
+    @BindView(R.id.countries_detail)
+    TextView country;
+    @BindView(R.id.tagline)
+    TextView tagline;
+    @BindView(R.id.overview)
+    TextView overview;
+    @BindView(R.id.language_detail)
+    TextView language;
+    @BindView(R.id.image_detail)
+    ImageView backdrop_path;
+    @BindView(R.id.poster_detail)
+    ImageView poster;
+    @BindView(R.id.fab)
     FloatingActionButton fbFavorite;
+    @BindView(R.id.toolbarl)
     Toolbar toolbar;
+
+    String idMovie;
+    private ArrayList<Movie> listFavorite;
+
     DetailMovieViewModel viewModel;
     Movie movieData;
 
     private int position;
     private FavoriteHelper helper;
 
-    public static String EXTRA_MOVIE = "extra_movie";
-    public static String EXTRA_POSITION = "extra_position";
     public static int RESULT_ADD = 101;
     public static int RESULT_DELETE = 301;
 
@@ -54,6 +81,8 @@ public class DetailMovieActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_movie);
+
+        ButterKnife.bind(this);
 
         Intent get = getIntent();
         idMovie = get.getStringExtra("id_movie");
@@ -70,7 +99,6 @@ public class DetailMovieActivity extends AppCompatActivity {
                 addFavorite();
             }
         });
-
     }
 
     private void addFavorite(){
@@ -83,15 +111,16 @@ public class DetailMovieActivity extends AppCompatActivity {
 
         helper.insertDataFavorite(movieFavorite);
         setResult(RESULT_ADD);
+        fbFavorite.setImageResource(R.drawable.ic_favorite_24dp);
         Toast.makeText(this, "Favorite Movie Added!",
                 Toast.LENGTH_LONG).show();
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         requestData();
+        new checkFavoriteAsync().execute();
     }
 
     private void requestData(){
@@ -168,23 +197,31 @@ public class DetailMovieActivity extends AppCompatActivity {
     }
 
     private void initView(){
-        title = findViewById(R.id.text_title_detail);
-        genre = findViewById(R.id.genre_detail);
-        release_date = findViewById(R.id.release_date_detail);
-        revenue = findViewById(R.id.revenue_detail);
-        vote_average = findViewById(R.id.vote_average_detail);
-        country = findViewById(R.id.countries_detail);
-        language = findViewById(R.id.language_detail);
-        tagline = findViewById(R.id.tagline);
-        overview = findViewById(R.id.overview);
-        backdrop_path = findViewById(R.id.image_detail);
-        poster = findViewById(R.id.poster_detail);
-        fbFavorite = findViewById(R.id.fab);
-        toolbar = findViewById(R.id.toolbarl);
+        listFavorite = new ArrayList<>();
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+    }
+
+    private class checkFavoriteAsync extends AsyncTask<Void, Void, ArrayList<Movie>>{
+
+        @Override
+        protected ArrayList<Movie> doInBackground(Void... voids) {
+            return helper.getDataById(idMovie);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Movie> movies) {
+            super.onPostExecute(movies);
+            listFavorite.addAll(movies);
+
+            if (listFavorite.size() != 0){
+                fbFavorite.setImageResource(R.drawable.ic_favorite_24dp);
+            }
+        }
     }
 
 }
