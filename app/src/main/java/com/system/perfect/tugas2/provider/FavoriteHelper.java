@@ -94,34 +94,10 @@ public class FavoriteHelper {
         return db.insert(TABLE, null, initVal);
     }
 
-    public int deleteDataFavorite(int id){
+    public int deleteDataFavorite(String id){
         return db.delete(TABLE, ID + " ='" + id + "'",null);
     }
 
-    public void insertTransaction(Movie movie){
-        String sql = "INSERT INTO "+ TABLE+ " (" + TITLE+", " + DESCRIPTION + ", " + RELEASE_DATE + ", " + POSTER +
-                ") VALUES (?, ?, ?, ?)";
-
-        SQLiteStatement statement = db.compileStatement(sql);
-        statement.bindString(1, movie.getTitle());
-        statement.bindString(2, movie.getOverview());
-        statement.bindString(3, movie.getReleaseDate());
-        statement.bindString(4, movie.getPosterPath());
-        statement.execute();
-        statement.clearBindings();
-    }
-
-    public void beginTransaction(){
-        db.beginTransaction();
-    }
-
-    public void setTransactionSuccess(){
-        db.setTransactionSuccessful();
-    }
-
-    public void endTransaction(){
-        db.endTransaction();
-    }
 
     public Cursor queryByIdProvider(String id){
         return db.query(TABLE,null,ID + " = ?" ,new String[]{id},null,null,null,null);

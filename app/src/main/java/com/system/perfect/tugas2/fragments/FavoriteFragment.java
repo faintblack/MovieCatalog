@@ -24,7 +24,6 @@ import com.system.perfect.tugas2.provider.FavoriteHelper;
 import com.system.perfect.tugas2.support.ItemClickSupport;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class FavoriteFragment extends Fragment {

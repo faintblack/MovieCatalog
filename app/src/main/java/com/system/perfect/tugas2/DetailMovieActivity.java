@@ -96,7 +96,11 @@ public class DetailMovieActivity extends AppCompatActivity {
         fbFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addFavorite();
+                if (listFavorite.size() == 0){
+                    addFavorite();
+                } else {
+                    removeFavorite(idMovie);
+                }
             }
         });
     }
@@ -112,8 +116,15 @@ public class DetailMovieActivity extends AppCompatActivity {
         helper.insertDataFavorite(movieFavorite);
         setResult(RESULT_ADD);
         fbFavorite.setImageResource(R.drawable.ic_favorite_24dp);
-        Toast.makeText(this, "Favorite Movie Added!",
-                Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.toast_add_favorite,Toast.LENGTH_LONG).show();
+    }
+
+    private void removeFavorite(String id){
+        helper.deleteDataFavorite(id);
+        setResult(RESULT_DELETE);
+        listFavorite.clear();
+        fbFavorite.setImageResource(R.drawable.ic_favorite_border_24dp);
+        Toast.makeText(this, R.string.toast_remove_favorite,Toast.LENGTH_LONG).show();
     }
 
     @Override

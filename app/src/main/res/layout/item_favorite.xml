@@ -33,10 +33,10 @@
                     android:id="@+id/img_favorite"
                     tools:src="@color/colorAccent"
                     android:layout_width="80dp"
-                    android:layout_height="110dp" />
+                    android:layout_height="130dp" />
                 <LinearLayout
                     android:layout_marginTop="@dimen/vertical_margin"
-                    android:layout_marginStart="@dimen/vertical_margin"
+                    android:layout_marginLeft="@dimen/horizontal_margin"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">

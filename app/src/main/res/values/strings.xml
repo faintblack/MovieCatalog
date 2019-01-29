@@ -15,4 +15,6 @@
     <string name="tab_text_3">Search</string>
     <string name="tab_text_4">Favorite</string>
     <string name="favorite_data_text">There is no favorite movie</string>
+    <string name="toast_add_favorite">Favorite movie added!</string>
+    <string name="toast_remove_favorite">Favorite movie removed!</string>
 </resources>
