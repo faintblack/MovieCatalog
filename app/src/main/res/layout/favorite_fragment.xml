@@ -20,7 +20,7 @@
         android:visibility="gone"
         android:gravity="center"
         android:textAlignment="center"
-        android:id="@+id/testtt"
+        android:id="@+id/empty_favorite"
         android:text="@string/favorite_data_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

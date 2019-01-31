@@ -60,6 +60,8 @@ public class PopularFragment extends Fragment {
         adapt = new PopularAdapter(getContext());
         rvPopular.setAdapter(adapt);
 
+
+
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

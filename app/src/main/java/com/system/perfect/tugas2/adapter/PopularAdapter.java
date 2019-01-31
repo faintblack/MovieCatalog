@@ -52,7 +52,13 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularViewHolder> {
                 .load(BuildConfig.TMDB_IMAGE_SMALL + getMovieList().get(i).getPosterPath())
                 .apply(new RequestOptions().override(350, 550))
                 .into(popularViewHolder.imgPoster);
-        popularViewHolder.textOverview.setText(movieList.get(i).getOverview());
+
+        String description = movieList.get(i).getOverview();
+        if (description.length() > 180){
+            description = description.substring(0, 180) + "...";
+        }
+
+        popularViewHolder.textOverview.setText(description);
         popularViewHolder.textReleaseDate.setText(getRelease(movieList.get(i).getReleaseDate()));
     }
 

@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.system.perfect.tugas2.BuildConfig;
 import com.system.perfect.tugas2.DetailMovieActivity;
@@ -55,6 +56,8 @@ public class NowPlayingFragment extends Fragment {
         rvNowPlaying.setLayoutManager(layoutManager);
         adapt = new NowPlayingAdapter(getContext());
         rvNowPlaying.setAdapter(adapt);
+
+
 
         ItemClickSupport.addTo(rvNowPlaying).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override

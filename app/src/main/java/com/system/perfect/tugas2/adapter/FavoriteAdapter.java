@@ -57,7 +57,13 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteViewHolder> {
                 .load(BuildConfig.TMDB_IMAGE_SMALL + movie.getPosterPath())
                 .apply(new RequestOptions().override(350, 550))
                 .into(favoriteViewHolder.imgPoster);
-        favoriteViewHolder.textOverview.setText(movie.getOverview());
+
+        String description = movie.getOverview();
+        if (description.length() > 180){
+            description = description.substring(0, 180) + "...";
+        }
+
+        favoriteViewHolder.textOverview.setText(description);
         favoriteViewHolder.textReleaseDate.setText(getRelease(movie.getReleaseDate()));
 
         favoriteViewHolder.cv_favorite.setOnClickListener(new CustomOnItemClickListener(i,

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Favorite Movie</string>
+    <string name="favorite_data_text">There is no favorite movie</string>
 </resources>

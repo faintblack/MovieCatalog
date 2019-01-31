@@ -30,7 +30,7 @@ public class FavoriteFragment extends Fragment {
     private FavoriteHelper helper;
 
     ProgressBar pb;
-    TextView a;
+    TextView empty;
     RecyclerView rv_favorite;
 
 
@@ -44,7 +44,7 @@ public class FavoriteFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.favorite_fragment, container, false);
 
-        a = v.findViewById(R.id.testtt);
+        empty = v.findViewById(R.id.empty_favorite);
         pb = v.findViewById(R.id.pro_bar_favorite);
         rv_favorite = v.findViewById(R.id.rv_favorite);
         rv_favorite.setHasFixedSize(true);
@@ -93,7 +93,11 @@ public class FavoriteFragment extends Fragment {
             pb.setVisibility(View.GONE);
             list = movies;
             adapt.setMovieList(list);
-
+            if (adapt.getItemCount() == 0){
+                empty.setVisibility(View.VISIBLE);
+            } else {
+                empty.setVisibility(View.GONE);
+            }
         }
     }
 

@@ -17,4 +17,7 @@
     <string name="favorite_data_text">There is no favorite movie</string>
     <string name="toast_add_favorite">Favorite movie added!</string>
     <string name="toast_remove_favorite">Favorite movie removed!</string>
+    <string name="add_widget">Add widget</string>
+    <string name="empty_text">Data is not available</string>
+    <string name="widget_text">Favorite Movie</string>
 </resources>

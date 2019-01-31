@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import static com.system.perfect.favoritemovie.DatabaseContract.CONTENT_URI;
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     RecyclerView rv_favorite_module;
     CoordinatorLayout coord;
     ProgressBar pb;
+    TextView emptyText;
 
     private final int LOAD_MOVIES_ID = 117;
 
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
         pb = findViewById(R.id.pb_favorite_module);
+        emptyText = findViewById(R.id.empty_favorite);
         rv_favorite_module = findViewById(R.id.rv_favorite_module);
         adapt = new RecyclerAdapter(this);
         rv_favorite_module.setLayoutManager(new LinearLayoutManager(this));
@@ -57,6 +60,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
         adapt.setFavourite(cursor);
         pb.setVisibility(View.GONE);
+        if (adapt.getItemCount() == 0){
+            emptyText.setVisibility(View.VISIBLE);
+        } else {
+            emptyText.setVisibility(View.GONE);
+        }
     }
 
     @Override

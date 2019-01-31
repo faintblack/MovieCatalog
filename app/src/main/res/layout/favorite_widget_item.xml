@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+    <ImageView
+        app:srcCompat="@drawable/star_wars_logo"
+        android:id="@+id/image_widget"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/widget_favorite_title"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/vertical_margin"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textColor="#FFF"
+        android:text="Aquaman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+</FrameLayout>
