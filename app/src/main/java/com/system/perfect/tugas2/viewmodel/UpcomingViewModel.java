@@ -8,7 +8,6 @@ import com.system.perfect.tugas2.model.Movie;
 import com.system.perfect.tugas2.model.MovieResult;
 import com.system.perfect.tugas2.support.APIInterface;
 import com.system.perfect.tugas2.support.RetrofitClient;
-
 import java.util.List;
 
 import retrofit2.Call;

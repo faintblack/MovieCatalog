@@ -24,7 +24,6 @@ import static com.system.perfect.tugas2.provider.DatabaseContract.CONTENT_URI;
 
 public class FavoriteFragment extends Fragment {
 
-    private FavoriteViewModel viewModel;
     private FavoriteAdapter adapt;
     private Cursor list;
     private FavoriteHelper helper;
@@ -63,7 +62,6 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel = ViewModelProviders.of(this).get(FavoriteViewModel.class);
     }
 
     @Override

@@ -24,6 +24,9 @@
     <string name="default_notification_channel_id">catalog_movie_default_channel</string>
     <string name="default_notification_channel_name">Movie</string>
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
-    <string name="daily_reminder_text">Catalog movie is missing you!</string>
+    <string name="daily_reminder_text">Movie Catalog is missing you!</string>
     <string name="pref_first_run_app">First run app</string>
+    <string name="release_today_text">has been release today!</string>
+    <string name="check_reminder_option">Turn on/off reminder</string>
+    <string name="pref_release_today">Release today pref</string>
 </resources>

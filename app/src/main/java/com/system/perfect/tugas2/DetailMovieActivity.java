@@ -26,6 +26,7 @@ import com.system.perfect.tugas2.model.Movie;
 import com.system.perfect.tugas2.model.ProductionCountry;
 import com.system.perfect.tugas2.model.SpokenLanguage;
 import com.system.perfect.tugas2.provider.FavoriteHelper;
+import com.system.perfect.tugas2.support.notification.DailyReleaseReceiver;
 import com.system.perfect.tugas2.viewmodel.DetailMovieViewModel;
 
 import java.text.DecimalFormat;
@@ -78,6 +79,7 @@ public class DetailMovieActivity extends AppCompatActivity {
     String idMovie;
     private ArrayList<Movie> listFavorite;
 
+    private DailyReleaseReceiver releaseReceiver;
     DetailMovieViewModel viewModel;
     Movie movieData;
 
@@ -92,6 +94,7 @@ public class DetailMovieActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_movie);
 
         ButterKnife.bind(this);
+        releaseReceiver = new DailyReleaseReceiver();
 
         Intent get = getIntent();
         idMovie = get.getStringExtra("id_movie");

@@ -57,8 +57,6 @@ public class NowPlayingFragment extends Fragment {
         adapt = new NowPlayingAdapter(getContext());
         rvNowPlaying.setAdapter(adapt);
 
-
-
         ItemClickSupport.addTo(rvNowPlaying).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {

@@ -50,6 +50,10 @@
             android:name=".support.notification.DailyReceiver"
             android:enabled="true"
             android:exported="true"/>
+        <receiver
+            android:name=".support.notification.DailyReleaseReceiver"
+            android:enabled="true"
+            android:exported="true"/>
 
         <receiver android:name=".support.widget.FavoriteWidget">
             <intent-filter>
