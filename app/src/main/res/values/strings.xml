@@ -20,4 +20,9 @@
     <string name="add_widget">Add widget</string>
     <string name="empty_text">Data is not available</string>
     <string name="widget_text">Favorite Movie</string>
+    <string name="subtext_notif">Catalog Movie is missing you!</string>
+    <string name="default_notification_channel_id">catalog_movie_default_channel</string>
+    <string name="default_notification_channel_name">Movie</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+    <string name="daily_reminder_text">Catalog movie is missing you!</string>
 </resources>

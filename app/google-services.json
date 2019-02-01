@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "140122567473",
+    "firebase_url": "https://moviecatalog-7180f.firebaseio.com",
+    "project_id": "moviecatalog-7180f",
+    "storage_bucket": "moviecatalog-7180f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140122567473:android:6f627ba069931596",
+        "android_client_info": {
+          "package_name": "com.system.perfect.tugas2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140122567473-ib0nrf2nq4sacsdae84bfrq9e8ncl7ll.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.system.perfect.tugas2",
+            "certificate_hash": "0ebc8cc896ad6d699877c064d3b768b28f4ff378"
+          }
+        },
+        {
+          "client_id": "140122567473-j7ue23elipc2plqvp960ap5dm29a5c07.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB96kn62pS4ADiscefF694dpfRg7bgG6e0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140122567473-j7ue23elipc2plqvp960ap5dm29a5c07.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

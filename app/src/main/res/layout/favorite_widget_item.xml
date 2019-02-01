@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
     
     <ImageView
-        app:srcCompat="@drawable/star_wars_logo"
+        app:srcCompat="@color/colorPrimary"
         android:id="@+id/image_widget"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"

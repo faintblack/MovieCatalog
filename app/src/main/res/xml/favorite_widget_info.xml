@@ -5,6 +5,6 @@
     android:initialLayout="@layout/favorite_widget"
     android:minWidth="180dp"
     android:minHeight="250dp"
-    android:previewImage="@drawable/starwars"
+    android:previewImage="@drawable/onepiece1"
     android:updatePeriodMillis="0"
     android:widgetCategory="home_screen" />
