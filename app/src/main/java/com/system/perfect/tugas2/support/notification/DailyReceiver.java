@@ -99,9 +99,8 @@ public class DailyReceiver extends BroadcastReceiver {
         if (alarmManager != null) {
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,
                     pendingIntent);
-            Toast.makeText(context, "New Repeating alarm set up", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "New Repeating alarm set up", Toast.LENGTH_SHORT).show();
         }
-        //Toast.makeText(context, "Repeating alarm set up", Toast.LENGTH_SHORT).show();
     }
 
     public void cancelAlarm(Context context) {

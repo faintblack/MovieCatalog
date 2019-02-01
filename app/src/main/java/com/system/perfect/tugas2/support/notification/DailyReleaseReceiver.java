@@ -89,6 +89,10 @@ public class DailyReleaseReceiver extends BroadcastReceiver {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
 
+        while (calendar.before(Calendar.getInstance())){
+            calendar.add(Calendar.HOUR, 2);
+        }
+
         Intent intent = new Intent(context, DailyReleaseReceiver.class);
         intent.putExtra("id", movie.getId().toString());
         intent.putExtra("title", movie.getTitle());
