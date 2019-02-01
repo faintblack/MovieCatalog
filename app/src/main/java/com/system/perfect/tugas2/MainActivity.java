@@ -33,6 +33,7 @@ import com.system.perfect.tugas2.fragments.FavoriteFragment;
 import com.system.perfect.tugas2.fragments.NowPlayingFragment;
 import com.system.perfect.tugas2.fragments.PopularFragment;
 import com.system.perfect.tugas2.fragments.UpcomingFragment;
+import com.system.perfect.tugas2.support.SharedPreference;
 import com.system.perfect.tugas2.support.notification.DailyReceiver;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionAdapter mSectionAdapter;
     private ViewPager mViewPager;
     private DailyReceiver receiver;
+    SharedPreference session;
 
     NotificationCompat.Builder mBuilder;
     NotificationManager mNotifManager;
@@ -64,9 +66,18 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tab = findViewById(R.id.tabs);
         tab.setupWithViewPager(mViewPager);
 
-        //Inisiasi kelas Daily Receiver
-        receiver = new DailyReceiver();
-        receiver.setRepeatingAlarm(this);
+        session = new SharedPreference(this);
+
+        if (session.getFirstRun()){
+            receiver = new DailyReceiver();
+            receiver.setRepeatingAlarm(this);
+            session.setFirstRun(false);
+        }
+        /*else {
+            receiver = new DailyReceiver();
+            receiver.cancelAlarm(this);
+            session.setFirstRun(false);
+        }*/
 
     }
 

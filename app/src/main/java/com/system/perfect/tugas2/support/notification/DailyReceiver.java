@@ -86,21 +86,35 @@ public class DailyReceiver extends BroadcastReceiver {
     }
 
     public void setRepeatingAlarm(Context context) {
-
+        cancelAlarm(context);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, DailyReceiver.class);
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 7);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_DAILY, intent, 0);
-        if (alarmManager != null) {
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        if (calendar.before(Calendar.getInstance())){
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
-        Toast.makeText(context, "Repeating alarm set up", Toast.LENGTH_SHORT).show();
 
+        Intent intent = new Intent(context, DailyReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_DAILY, intent, 0);
+
+        if (alarmManager != null) {
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,
+                    pendingIntent);
+            Toast.makeText(context, "New Repeating alarm set up", Toast.LENGTH_SHORT).show();
+        }
+        //Toast.makeText(context, "Repeating alarm set up", Toast.LENGTH_SHORT).show();
+    }
+
+    public void cancelAlarm(Context context) {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, DailyReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_DAILY, intent, 0);
+
+        alarmManager.cancel(pendingIntent);
     }
 
 }
